@@ -227,7 +227,7 @@ h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:var(--text-sm)!importan
       <li><a href="../index.html#work">Work</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
-      <li><a href="#" class="nav-cta">Resume ↗</a></li>
+      <li><a href="#" class="nav-cta resume-btn">Resume ↗</a></li>
     </ul>
     <button class="mobile-menu-btn" aria-label="Toggle menu"><span></span><span></span></button>
   </div>
@@ -673,5 +673,14 @@ const statObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{
 document.querySelectorAll('h1.t-h1,h2.t-h2,h3.t-h3').forEach(el=>el.classList.add('reveal-title'));
 const titleObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting&&!entry.target.classList.contains('animate')){entry.target.classList.add('animate')}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('h1.t-h1,h2.t-h2,h3.t-h3').forEach(el=>titleObserver.observe(el));
 </script>
+
+<!-- Resume Modal -->
+<div class="resume-modal-overlay" id="resumeModal">
+    <div class="resume-modal">
+        <button class="resume-modal-close">&times;</button>
+        <iframe class="resume-modal-iframe" src="../SARANG%20N%20ATS%20CV%20(1).pdf" title="Resume"></iframe>
+    </div>
+</div>
+
 </body>
 </html>

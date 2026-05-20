@@ -351,6 +351,7 @@ function initCapabilities() {
 function initResumeModal() {
     const modal = document.getElementById('resumeModal');
     const btns = document.querySelectorAll('.resume-btn');
+    if (!modal) return;
     const closeBtn = modal.querySelector('.resume-modal-close');
 
     btns.forEach(btn => {
@@ -366,7 +367,7 @@ function initResumeModal() {
         document.body.style.overflow = '';
     }
 
-    closeBtn.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
