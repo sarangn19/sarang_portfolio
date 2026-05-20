@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Second Brain — Sarang N</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ── white page overrides ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#000;font-family:'Satoshi',sans-serif;-webkit-font-smoothing:antialiased}
+.page-wrapper{background:#fff}
+/* ensure headings are always visible on this page */
+h1,h2,h3,h4,h5,h6{opacity:1!important;transform:none!important}
+h1 span,h2 span,h3 span,h4 span{opacity:1!important;transform:none!important;display:inline!important}
+
+/* nav */
+.navbar{background:rgba(255,255,255,.92)!important;padding:20px 0}
+.navbar.scrolled{background:rgba(255,255,255,.97)!important}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,92px);display:flex;align-items:center;justify-content:space-between}
+.logo,.nav-links a{color:#000!important}
+.nav-links a::after,.nav-links a::before{background:#000!important}
+.nav-cta{border-color:rgba(0,0,0,.15)!important;color:#000!important}
+.nav-cta:hover{background:#000!important;color:#fff!important;border-color:#000!important}
+.mobile-menu-btn span{background:#000}
+.cursor{border-color:rgba(0,0,0,.5);mix-blend-mode:normal;background:transparent}
+.cursor.hover{border-color:#000;background:rgba(0,0,0,.06)}
+.cursor-dot{background:#000}
+.nav-links.active{background:rgba(255,255,255,.98)!important;border-color:rgba(0,0,0,.08)}
+
+/* ── layout shell ── */
+.w{max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,92px);font-family:'Satoshi',sans-serif}
+
+/* all text inherits Satoshi */
+.sec,.card,.affinity-card,.persona,.sol-card,.flow-item,.jrn,.tbl,.ia-branch,.stat-block,.stat-lbl,.stat-num,.dot-item,.card-note,.affinity-title,.affinity-text,.persona-name,.persona-body,.sol-title,.sol-body,.sol-note,.flow-name,.flow-steps,.insight-title,.core-label,.core-text,.ia-branch-name,.ia-branch li,.bubble{font-family:'Satoshi',sans-serif}
+
+/* ── typography tokens — aligned with main site scale ── */
+.t-eyebrow{font-family:'Satoshi',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:.04em;color:#000;line-height:1.375}
+h1.t-h1{font-family:'Satoshi',sans-serif;font-size:clamp(2.5rem,5vw,4rem)!important;font-weight:700!important;line-height:1.1!important;letter-spacing:-.02em!important;color:#000!important}
+h2.t-h2{font-family:'Satoshi',sans-serif;font-size:clamp(2rem,4vw,3rem)!important;font-weight:700!important;line-height:1.2!important;color:#000!important}
+h3.t-h3{font-family:'Satoshi',sans-serif;font-size:1.25rem!important;font-weight:700!important;line-height:1.3!important;color:#000!important}
+h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:0.875rem!important;font-weight:700!important;line-height:1.35!important;color:#000!important}
+.t-body-lg{font-family:'Satoshi',sans-serif;font-size:1.125rem;font-weight:400;line-height:1.65;color:rgba(0,0,0,.8)}
+.t-body{font-family:'Satoshi',sans-serif;font-size:1rem;font-weight:400;line-height:1.65;color:rgba(0,0,0,.7)}
+.t-label{font-family:'Satoshi',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5)}
+.t-meta-val{font-family:'Satoshi',sans-serif;font-size:1rem;font-weight:400;line-height:1.5;color:rgba(0,0,0,.6)}
+
+/* ── section spacing ── */
+.sec{padding:clamp(40px,5vw,80px) 0}
+.sec-gap{display:flex;flex-direction:column;gap:clamp(24px,3vw,48px)}
+.gap-sm{gap:clamp(12px,1.5vw,20px)}
+.gap-md{gap:clamp(16px,2vw,32px)}
+.gap-lg{gap:clamp(24px,3vw,64px)}
+
+/* ── hero ── */
+.hero-wrap{padding:clamp(100px,10vw,200px) 0 clamp(40px,4vw,64px)}
+.hero-meta{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:clamp(20px,4vw,64px);align-items:start}
+.meta-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,48px);padding:0 clamp(0px,2vw,32px)}
+.meta-col{display:flex;flex-direction:column;gap:6px}
+
+/* ── cover ── */
+.cover{width:100%;aspect-ratio:16/6.5;background:#CFCFCF;border-radius:clamp(8px,1.5vw,24px);overflow:hidden;margin-bottom:clamp(40px,5vw,80px)}
+.cover-inner{width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center}
+.cover-ghost{font-size:clamp(40px,10vw,120px);font-weight:900;letter-spacing:-.04em;color:rgba(255,255,255,.05);user-select:none;white-space:nowrap}
+
+/* ── comparison table ── */
+.tbl-wrap{overflow-x:auto;margin-top:clamp(20px,2.5vw,40px)}
+.tbl{width:100%;border-collapse:collapse;min-width:600px}
+.tbl th{padding:clamp(10px,1.2vw,18px) clamp(8px,1.5vw,20px);font-size:0.75rem;font-weight:700;text-align:left;border:1px solid rgba(0,0,0,.18);background:#fafafa;line-height:1.4;vertical-align:bottom;color:#000}
+.tbl td{padding:clamp(8px,1vw,14px) clamp(8px,1.5vw,20px);font-size:0.875rem;border:1px solid rgba(0,0,0,.12);vertical-align:middle;color:rgba(0,0,0,.6)}
+.tbl td:first-child{font-weight:700;color:#000}
+.tbl .ok{color:#1AB76C;font-weight:500}
+
+/* ── stat row ── */
+.stat-row{display:flex;align-items:center;gap:clamp(16px,3vw,48px);flex-wrap:wrap;margin-bottom:clamp(20px,2.5vw,40px)}
+.stat-block{display:flex;flex-direction:column;align-items:center;gap:2px}
+.stat-num{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1;color:rgba(0,0,0,.18);letter-spacing:-.03em}
+.stat-lbl{font-size:0.75rem;color:rgba(0,0,0,.45)}
+.stat-div{width:1px;height:clamp(40px,5vw,80px);background:rgba(0,0,0,.1);flex-shrink:0}
+
+/* ── cards ── */
+.cards-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(12px,1.5vw,24px)}
+.cards-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(12px,1.5vw,24px)}
+.card{border:1px solid rgba(0,0,0,.1);border-radius:4px;padding:clamp(16px,2vw,28px);display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
+.card-head{display:flex;flex-direction:column;gap:6px}
+.dot-list{display:flex;flex-direction:column;gap:clamp(8px,1vw,14px)}
+.dot-item{display:flex;align-items:flex-start;gap:10px}
+.dot{width:clamp(10px,1vw,16px);height:clamp(10px,1vw,16px);border-radius:50%;flex-shrink:0;margin-top:3px}
+.card-note{font-size:0.75rem;color:rgba(0,0,0,.4);font-style:italic}
+
+/* ── affinity grid ── */
+.affinity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(12px,1.5vw,20px)}
+.affinity-card{border:1px solid rgba(0,0,0,.1);border-radius:4px;padding:clamp(16px,2vw,24px);display:flex;gap:clamp(12px,1.5vw,20px);align-items:flex-start}
+.affinity-img{width:clamp(60px,8vw,120px);height:clamp(60px,8vw,120px);border-radius:8px;background:#CFCFCF;flex-shrink:0}
+.affinity-body{display:flex;flex-direction:column;gap:8px;opacity:.8}
+.affinity-title{font-size:1.125rem;font-weight:700;color:#000}
+.affinity-text{font-size:0.875rem;color:#000;line-height:1.6}
+
+/* ── two-col ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,80px)}
+.insight-title{font-size:1.125rem;font-weight:700;color:#000;margin-bottom:10px}
+
+/* ── persona ── */
+.persona-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(12px,1.5vw,24px)}
+.persona{border:1px solid rgba(0,0,0,.1);border-radius:4px;padding:clamp(20px,3vw,48px);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.2vw,16px)}
+.persona-img{width:clamp(80px,10vw,160px);height:clamp(100px,13vw,200px);background:#CFCFCF;border-radius:8px}
+.persona-name{font-size:1.125rem;font-weight:700;color:#000;align-self:flex-start}
+.persona-body{font-size:0.875rem;color:rgba(0,0,0,.7);line-height:1.75;align-self:stretch}
+
+/* ── ideation ── */
+.hmw-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:clamp(24px,4vw,80px);align-items:start}
+.hmw-placeholder{background:#EEEEEE;border-radius:4px;aspect-ratio:2/1;min-height:120px}
+.sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(12px,1.5vw,24px)}
+.sol-card{border:1px solid rgba(0,0,0,.1);border-radius:4px;padding:clamp(16px,2vw,32px);display:flex;flex-direction:column;gap:10px}
+.sol-title{font-size:1.125rem;font-weight:700;color:rgba(0,0,0,.8)}
+.sol-body{font-size:0.875rem;color:rgba(0,0,0,.7);line-height:1.7}
+.sol-note{font-size:0.75rem;color:rgba(0,0,0,.4)}
+.core-idea{text-align:center;padding:clamp(32px,5vw,80px) 0}
+.core-label{font-size:1.125rem;font-weight:700;color:rgba(0,0,0,.7);margin-bottom:12px}
+.core-text{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:500;letter-spacing:-.02em;color:#000;line-height:1.3}
+
+/* ── IA ── */
+.ia-root{display:flex;justify-content:center;flex-direction:column;align-items:center;gap:0;margin-bottom:clamp(16px,2vw,32px)}
+.ia-node{border:1px solid rgba(0,0,0,.2);padding:clamp(8px,1vw,12px) clamp(16px,3vw,48px);font-size:0.875rem;font-weight:500;color:#000;background:#fff}
+.ia-arrow{width:2px;height:clamp(16px,2vw,28px);background:rgba(0,0,0,.15)}
+.ia-hline{width:min(80%,900px);height:1px;background:rgba(0,0,0,.15)}
+.ia-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1);border-radius:2px;overflow:hidden}
+.ia-branch{background:#fff;padding:clamp(12px,1.5vw,24px) clamp(10px,1.5vw,20px)}
+.ia-branch-name{font-size:0.875rem;font-weight:700;color:#000;margin-bottom:8px;display:block}
+.ia-branch ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.ia-branch li{font-size:0.75rem;color:rgba(0,0,0,.45)}
+
+/* ── flow list ── */
+.flow-list{border:1px solid rgba(0,0,0,.1);border-radius:4px;overflow:hidden}
+.flow-item{display:flex;align-items:baseline;gap:clamp(12px,2vw,32px);padding:clamp(14px,1.8vw,24px) clamp(16px,2vw,28px)}
+.flow-num{font-size:0.75rem;color:rgba(0,0,0,.3);width:20px;flex-shrink:0}
+.flow-name{font-size:0.875rem;font-weight:700;color:#000;width:clamp(120px,12vw,180px);flex-shrink:0}
+.flow-steps{font-size:0.875rem;color:rgba(0,0,0,.6);line-height:1.6}
+
+/* ── journey table ── */
+.jrn-wrap{overflow-x:auto}
+.jrn{width:100%;border-collapse:collapse;min-width:600px;border-radius:12px;overflow:hidden}
+.jrn th{padding:clamp(10px,1.2vw,18px) clamp(10px,1.5vw,20px);font-size:0.75rem;font-weight:500;text-align:left;border:1px solid rgba(0,0,0,.15);background:#fff;color:rgba(0,0,0,.7);letter-spacing:-.01em}
+.jrn td{padding:clamp(10px,1.2vw,18px) clamp(10px,1.5vw,20px);font-size:0.875rem;border:1px solid rgba(0,0,0,.1);vertical-align:top;color:rgba(0,0,0,.65);line-height:1.6}
+.jrn td:first-child{font-weight:600;color:#000;white-space:nowrap}
+
+/* ── screen rows ── */
+.screen-row{display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,24px);padding:clamp(24px,3vw,48px) 0}
+.screen-img{width:min(1120px,100%);background:transparent;border-radius:12px;overflow:visible;flex-shrink:0}
+.screen-img img{width:100%;height:auto;display:block;border-radius:12px}
+.bubble-wrap{width:min(1120px,100%);flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+.bubble{background:#EEEEEE;border-radius:8px;padding:clamp(16px,2vw,24px);font-size:1rem;color:rgba(0,0,0,.75);line-height:1.65;font-weight:500;text-align:center}
+.bubble-r{border-radius:8px}
+
+/* ── nav ── */
+.cs-nav{display:flex;justify-content:space-between;align-items:center;padding:clamp(32px,4vw,64px) 0}
+.btn-w{display:inline-flex;align-items:center;padding:clamp(10px,1vw,14px) clamp(16px,2vw,28px);font-size:0.875rem;font-weight:500;border-radius:100px;transition:all .3s ease;font-family:inherit;text-decoration:none;cursor:none}
+.btn-w-out{border:1px solid #000;color:#000;background:transparent}
+.btn-w-out:hover{background:#000;color:#fff}
+.btn-w-pri{background:#000;color:#fff;border:1px solid #000}
+.btn-w-pri:hover{background:transparent;color:#000}
+
+/* ── footer ── */
+.footer{background:#f5f5f5;padding:32px 0}
+.footer-inner{max-width:1400px;margin:0 auto;padding:0 clamp(20px,6vw,92px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer-inner .logo{color:#000;font-size:1rem;font-weight:500}
+.footer-copy{font-size:0.75rem;color:rgba(0,0,0,.4)}
+.footer-nav{display:flex;gap:24px}
+.footer-nav a{font-size:0.75rem;color:rgba(0,0,0,.4);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:#000}
+
+/* ── animations ── */
+@keyframes cs-fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cs-fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes cs-lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* hero entrance */
+.hero-wrap .t-eyebrow{opacity:0;animation:cs-fadeUp .7s .1s cubic-bezier(.16,1,.3,1) forwards}
+.hero-wrap h1{opacity:0;animation:cs-fadeUp .9s .25s cubic-bezier(.16,1,.3,1) forwards}
+.hero-wrap .hero-meta{opacity:0;animation:cs-fadeUp .8s .45s cubic-bezier(.16,1,.3,1) forwards}
+.cover{opacity:0;animation:cs-fadeUp 1s .6s cubic-bezier(.16,1,.3,1) forwards}
+
+/* scroll reveal base */
+.cs-reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.cs-reveal.cs-visible{opacity:1;transform:translateY(0)}
+
+/* stagger children */
+.cs-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.cs-stagger.cs-visible > *{opacity:1;transform:translateY(0)}
+.cs-stagger.cs-visible > *:nth-child(1){transition-delay:.05s}
+.cs-stagger.cs-visible > *:nth-child(2){transition-delay:.12s}
+.cs-stagger.cs-visible > *:nth-child(3){transition-delay:.19s}
+.cs-stagger.cs-visible > *:nth-child(4){transition-delay:.26s}
+.cs-stagger.cs-visible > *:nth-child(5){transition-delay:.33s}
+.cs-stagger.cs-visible > *:nth-child(6){transition-delay:.40s}
+.cs-stagger.cs-visible > *:nth-child(7){transition-delay:.47s}
+
+/* section border line draw */
+.sec{--line-origin:left}
+.sec::before{content:'';display:block;height:1px;background:rgba(0,0,0,.07);transform-origin:var(--line-origin);transform:scaleX(0);transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.sec.cs-visible::before{transform:scaleX(1)}
+
+/* stat number count-up feel */
+.stat-num{transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+/* card hover lift */
+.card,.affinity-card,.sol-card,.persona{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease}
+.card:hover,.affinity-card:hover,.sol-card:hover,.persona:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+
+/* screen row image scale on hover */
+.screen-img{transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.screen-row:hover .screen-img{transform:none}
+
+/* table row highlight */
+.tbl tbody tr{transition:background .2s ease}
+.tbl tbody tr:hover td{background:#f9f9f9}
+.jrn tbody tr{transition:background .2s ease}
+.jrn tbody tr:hover td{background:#f9f9f9}
+
+/* flow item hover */
+.flow-item{transition:background .2s ease,padding-left .25s ease}
+.flow-item:hover{background:#fafafa;padding-left:clamp(20px,2.5vw,40px)}
+
+/* ── responsive ── */
+@media(max-width:900px){
+  .hero-meta{grid-template-columns:1fr}
+  .meta-cols{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .hmw-row{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .meta-cols{grid-template-columns:1fr}
+  .stat-row{flex-direction:column;align-items:flex-start;gap:8px}
+  .stat-div{display:none}
+  .flow-item{flex-wrap:wrap}
+  .flow-name{width:auto}
+  .screen-img{width:100%}
+  .bubble-wrap{width:100%}
+}
+</style>
+</head>
+<body class="cs-page">
+<div class="page-wrapper">
+<div class="cursor"></div><div class="cursor-dot"></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Sarang N</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a href="#" class="nav-cta">Resume ↗</a></li>
+    </ul>
+    <button class="mobile-menu-btn" aria-label="Toggle menu"><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="w">
+  <div class="hero-wrap">
+    <a href="../index.html#work" style="font-size:0.875rem;color:rgba(0,0,0,.45);text-decoration:none;display:inline-block;margin-bottom:clamp(20px,2.5vw,40px);">← Back to work</a>
+    <p class="t-eyebrow" style="margin-bottom:clamp(16px,2vw,32px);">Case Study · EdTech · UX Research + Product Design</p>
+    <h1 class="t-h1" style="margin-bottom:clamp(24px,3vw,48px);">Second Brain: Designing Against Study Overwhelm &amp; Inconsistency</h1>
+    <div class="hero-meta">
+      <p class="t-body-lg" style="color:rgba(0,0,0,.6);">Students preparing for competitive exams appear productive — they create study plans, use multiple apps, and spend hours studying. However, this effort rarely translates into consistent progress or real mastery.</p>
+      <div class="meta-cols">
+        <div class="meta-col"><span class="t-label">Role</span><span class="t-meta-val">UI/UX Designer</span></div>
+        <div class="meta-col"><span class="t-label">Method</span><span class="t-meta-val">Interviews, Affinity mapping, Secondary research</span></div>
+        <div class="meta-col"><span class="t-label">Tools</span><span class="t-meta-val">Figma, Figjam</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cover"><div class="cover-inner"><span class="cover-ghost">Second Brain</span></div></div>
+</div>
+
+<!-- PROBLEM -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h2 class="t-h2">Problem</h2>
+    <p class="t-body-lg">Students preparing for competitive exams appear productive — they create study plans, use multiple apps, and spend hours studying. However, this effort rarely translates into consistent progress or real mastery. Despite having access to tools like note-taking apps, flashcards, and AI assistants, students struggle to maintain an effective study system.</p>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h2 class="t-h2">Research</h2>
+
+    <!-- Secondary Research -->
+    <div class="sec-gap gap-md">
+      <h3 class="t-h3">Secondary Research (Indian Context)</h3>
+      <p class="t-body-lg">Students preparing for competitive exams rely on a combination of tools like Notion for planning, Anki for revision, Forest for focus, Unacademy for structured learning, and ChatGPT for instant doubt-solving. While each tool is effective in its own domain, they operate in isolation and fail to support the complete learning journey. This fragmented ecosystem increases cognitive load, disrupts consistency, and prevents students from translating effort into meaningful progress.</p>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="min-width:90px">Product</th>
+            <th>Daily Planning</th><th>Active Recall</th><th>Spaced Repetition</th>
+            <th>Progress Tracking</th><th>Focus / Distraction Control</th>
+            <th>Context-aware AI</th><th>All-in-one System</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Notion</td><td class="ok">Strong</td><td>—</td><td>—</td><td>Basic</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Anki</td><td>—</td><td class="ok">Strong</td><td class="ok">Strong</td><td>Limited</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Forest</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="ok">Strong</td><td>—</td><td>—</td></tr>
+          <tr><td>Unacademy</td><td>Limited</td><td>Partial</td><td>—</td><td>Basic</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>ChatGPT</td><td>—</td><td>Limited</td><td>—</td><td>—</td><td>—</td><td>Limited</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- User Survey -->
+    <div class="sec-gap gap-md" style="margin-top:clamp(16px,2vw,32px)">
+      <h3 class="t-h3">User Survey (Quantitative Research)</h3>
+      <div class="stat-row">
+        <div class="stat-block"><span class="stat-lbl">Participants</span><span class="stat-num">32</span></div>
+        <div class="stat-div"></div>
+        <div class="stat-block"><span class="stat-lbl">Age</span><span class="stat-num">15–25</span></div>
+        <p class="t-body-lg" style="flex:1;min-width:200px;">The goal of this survey was to identify patterns in study behavior, challenges, and motivation. Insights helped uncover why students struggle with consistency despite using multiple tools.</p>
+      </div>
+
+      <div class="cards-3 cs-stagger">
+        <div class="card">
+          <div class="card-head"><span class="t-h4">Study Planning Behavior</span><span class="t-body">How students approach planning</span></div>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">70% create detailed study plans</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">40% spend more time planning than studying</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">52% fail to follow them consistently</span></div>
+          </div>
+          <span class="card-note">Planning becomes a form of procrastination</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="t-h4">Revision Behavior</span><span class="t-body">How students revise topics</span></div>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">65% rely on re-reading notes</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">48% use highlighting as main method</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">25% use active recall (flashcards/tests)</span></div>
+          </div>
+          <span class="card-note">Most students use passive learning methods</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="t-h4">Tool Usage Behavior</span><span class="t-body">Tools students use while studying</span></div>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">72% use YouTube / EdTech platforms</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">60% use note-taking apps (Notion, etc.)</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">45% use AI tools like ChatGPT</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">35% use flashcards (Anki)</span></div>
+          </div>
+          <span class="card-note">High dependency but fragmented usage</span>
+        </div>
+      </div>
+
+      <div class="cards-2 cs-stagger">
+        <div class="card">
+          <div class="card-head"><span class="t-h4">Motivation &amp; Consistency</span><span class="t-body">What affects consistency</span></div>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">68% lose motivation after small failures</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">55% feel overwhelmed by syllabus</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">47% compare themselves with others</span></div>
+          </div>
+          <span class="card-note">Motivation is emotionally fragile</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="t-h4">Progress Tracking Behavior</span><span class="t-body">How students measure progress</span></div>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot" style="background:#3D75ED"></div><span class="t-body">66% track hours studied</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">42% track completed tasks</span></div>
+            <div class="dot-item"><div class="dot" style="background:#3D64B9"></div><span class="t-body">18% track actual understanding</span></div>
+          </div>
+          <span class="card-note">Shows illusion of productivity</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Interviews -->
+    <div class="sec-gap gap-md" style="margin-top:clamp(16px,2vw,32px)">
+      <h3 class="t-h3">User Interviews</h3>
+      <div class="stat-row">
+        <div class="stat-block"><span class="stat-lbl">Participants</span><span class="stat-num">30</span></div>
+        <p class="t-body-lg" style="flex:1;min-width:200px;">The goal of these interviews was to understand deep behavioral patterns, emotional triggers, and real study habits beyond surface-level survey data. What I explored: how students actually study daily, how they revise and retain information, what breaks their focus and motivation, how they measure progress, and emotional struggles during preparation.</p>
+      </div>
+    </div>
+
+    <!-- Affinity Mapping -->
+    <div class="sec-gap gap-md" style="margin-top:clamp(16px,2vw,32px)">
+      <h3 class="t-h3">Affinity Mapping</h3>
+      <div class="affinity-grid cs-stagger">
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Planning ≠ Execution</div><div class="affinity-text">Students invest time in planning (Notion, timetables), but struggle to act. "I spend more time organizing my study plan than actually studying."</div></div></div>
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Passive Revision is Common</div><div class="affinity-text">Most students re-read or highlight instead of testing themselves. "I keep reading my notes again and again, but I still forget in exams."</div></div></div>
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Environment Strongly Affects Focus</div><div class="affinity-text">Distractions vary widely: phone notifications, noisy surroundings, messy study spaces. "Even a small distraction breaks my flow completely."</div></div></div>
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Motivation is Emotion-Driven</div><div class="affinity-text">One wrong answer → self-doubt. Peer comparison → stress. "When others are ahead, I feel like I'm already behind."</div></div></div>
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Tools Are Fragmented</div><div class="affinity-text">Students switch between notes apps, flashcards, videos, AI tools. "I use so many apps, but nothing connects properly."</div></div></div>
+        <div class="affinity-card"><div class="affinity-img"></div><div class="affinity-body"><div class="affinity-title">Revision Strategies Are Inconsistent</div><div class="affinity-text">Students use mixed methods: flashcards, mind maps, teaching others. No structured system.</div></div></div>
+      </div>
+      <div class="two-col" style="margin-top:clamp(12px,1.5vw,24px)">
+        <div><div class="insight-title">Key Insight</div><p class="t-body">Students are highly active but lack direction and feedback. Their study journey is unstructured, emotionally unstable, and hard to measure.</p></div>
+        <div><div class="insight-title">Conclusion</div><p class="t-body">The interviews revealed that the core issue is not lack of effort, but the absence of a guided, connected learning system that supports execution over planning, active learning over passive reading, and confidence over anxiety.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USER PERSONA -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h3 class="t-h3">User Persona</h3>
+    <div class="persona-grid cs-stagger">
+      <div class="persona">
+        <div class="persona-img"></div>
+        <div class="persona-name">The Overplanner</div>
+        <div class="persona-body"><strong>Age:</strong> 22 &nbsp;·&nbsp; <strong>Goal:</strong> Stay consistent and complete syllabus on time<br><br><strong>Behavior</strong><br>Creates detailed study plans (Notion, schedules). Spends time organizing instead of studying. Constantly restructures plans.<br><br><strong>Pain Points</strong><br>Feels overwhelmed by syllabus. Gets stuck in planning loop. Struggles to take action.<br><br><em>"I plan everything perfectly… but I don't follow it."</em><br><br><strong>Needs</strong><br>Clear daily direction · Reduced decision-making · Action-focused system</div>
+      </div>
+      <div class="persona">
+        <div class="persona-img"></div>
+        <div class="persona-name">The Passive Learner</div>
+        <div class="persona-body"><strong>Name:</strong> Riya &nbsp;·&nbsp; <strong>Age:</strong> 21<br><strong>Goal:</strong> Understand and remember concepts effectively<br><br><strong>Behavior</strong><br>Re-reads notes multiple times. Highlights important sections. Watches lectures repeatedly.<br><br><strong>Pain Points</strong><br>Forgets information quickly. Feels prepared but performs poorly. No structured revision method.<br><br><em>"I study a lot, but I still forget everything in exams."</em><br><br><strong>Needs</strong><br>Active recall methods · Structured revision system · Feedback on understanding</div>
+      </div>
+      <div class="persona">
+        <div class="persona-img"></div>
+        <div class="persona-name">The Distracted Learner</div>
+        <div class="persona-body"><strong>Name:</strong> Kabir &nbsp;·&nbsp; <strong>Age:</strong> 23<br><strong>Goal:</strong> Stay focused and build consistency<br><br><strong>Behavior</strong><br>Uses multiple tools (apps, videos, AI). Gets distracted easily. Starts strong but loses momentum.<br><br><strong>Pain Points</strong><br>Breaks focus frequently. Feels guilty after unproductive days. Inconsistent study routine.<br><br><em>"I start well, but I can't stay consistent."</em><br><br><strong>Needs</strong><br>Distraction control · Structured study flow · Motivation support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL PROBLEM STATEMENT -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h3 class="t-h3">Final Problem Statement</h3>
+    <p class="t-body-lg">Students preparing for competitive exams struggle to plan their daily study, revise effectively, and track meaningful progress, because their learning process is fragmented across multiple tools, relies heavily on passive methods, and lacks clear feedback on actual understanding. As a result, they experience cognitive overload, inconsistent study habits, and declining motivation, making it difficult to sustain long-term preparation and achieve mastery.</p>
+  </div>
+</section>
+
+<!-- IDEATION -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h2 class="t-h2">Ideation</h2>
+
+    <div class="sec-gap gap-md">
+      <h3 class="t-h3">How Might We (HMW) Questions</h3>
+      <div class="hmw-row">
+        <p class="t-body-lg">Based on the research insights, the following questions were framed to guide the design direction:<br><br>
+        How might we guide students daily without overwhelming them?<br>
+        How might we make revision active and effective?<br>
+        How might we show real progress to keep students motivated?</p>
+        <div class="hmw-placeholder"></div>
+      </div>
+    </div>
+
+    <div class="sec-gap gap-md">
+      <h3 class="t-h3" style="opacity:.8">Key Solution Ideas</h3>
+      <div class="sol-grid cs-stagger">
+        <div class="sol-card"><div class="sol-title">Guided Daily Study Flow</div><div class="sol-body">Instead of asking students to plan everything, the system provides a clear daily path. Shows "What to study today", breaks syllabus into manageable tasks, removes decision-making.</div><div class="sol-note">💡 Solves: Overplanning &amp; decision fatigue</div></div>
+        <div class="sol-card"><div class="sol-title">Built-in Active Recall System</div><div class="sol-body">Replace passive revision with question-based learning. Converts notes into questions automatically, quiz-based revision, instant feedback on answers.</div><div class="sol-note">💡 Solves: Passive learning &amp; poor retention</div></div>
+        <div class="sol-card"><div class="sol-title">Smart Revision (Spaced Repetition)</div><div class="sol-body">System decides when to revise. Schedules revision automatically, prioritizes weak topics, repeats content at optimal intervals.</div><div class="sol-note">💡 Solves: Forgetting &amp; unstructured revision</div></div>
+        <div class="sol-card"><div class="sol-title">Motivation Protection Layer</div><div class="sol-body">Designed to support users emotionally, not punish them. Encourages after mistakes, tracks streaks without pressure, shows small wins.</div><div class="sol-note">💡 Solves: Low confidence &amp; inconsistency</div></div>
+        <div class="sol-card"><div class="sol-title">Mastery-Based Progress Tracking</div><div class="sol-body">Track learning, not time. Shows topic-wise understanding, readiness score, highlights weak areas.</div><div class="sol-note">💡 Solves: Illusion of productivity</div></div>
+        <div class="sol-card"><div class="sol-title">Context-Aware AI Assistant</div><div class="sol-body">AI that understands your learning journey. Explains concepts based on your level, generates quizzes from your notes, suggests what to study next.</div><div class="sol-note">💡 Solves: Generic AI help &amp; lack of guidance</div></div>
+        <div class="sol-card"><div class="sol-title">Unified Learning System</div><div class="sol-body">Everything in one place. Connects planning, studying, revision, and tracking.</div><div class="sol-note">💡 Solves: Fragmented tools &amp; switching fatigue</div></div>
+      </div>
+    </div>
+
+    <div class="core-idea">
+      <div class="core-label">Core Idea</div>
+      <div class="core-text">From "multiple disconnected tools" → to "one guided learning system"</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMATION ARCHITECTURE -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h3 class="t-h3" style="opacity:.8">Information Architecture</h3>
+    <div>
+      <div class="ia-root">
+        <div class="ia-node">User</div>
+        <div class="ia-arrow"></div>
+        <div class="ia-node">Dashboard</div>
+        <div class="ia-arrow"></div>
+        <div class="ia-hline"></div>
+      </div>
+      <div class="ia-branches">
+        <div class="ia-branch"><span class="ia-branch-name">Learn</span><ul><li>Notes</li><li>MCQ</li><li>Flashcards</li><li>AI generated task</li></ul></div>
+        <div class="ia-branch"><span class="ia-branch-name">Revise</span><ul><li>AI generated task</li><li>Spaced repetition</li><li>Weak topic focus</li></ul></div>
+        <div class="ia-branch"><span class="ia-branch-name">Progress</span><ul><li>Mastery map</li><li>Readiness score</li><li>Streak &amp; history</li></ul></div>
+        <div class="ia-branch"><span class="ia-branch-name">AI Assistant</span><ul><li>Mode selector</li><li>Chat</li><li>File uploader</li><li>Save content</li></ul></div>
+        <div class="ia-branch"><span class="ia-branch-name">Profile</span><ul><li>Goal &amp; exam</li><li>SWOT mapping</li><li>Study preferences</li></ul></div>
+        <div class="ia-branch"><span class="ia-branch-name">Settings</span><ul><li>Notifications</li><li>Focus mode</li><li>Integrations</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USER FLOW -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h3 class="t-h3" style="opacity:.8">User Flow</h3>
+    <div class="flow-list">
+      <div class="flow-item"><span class="flow-num">01</span><span class="flow-name">Onboarding flow</span><span class="flow-steps">Welcome → Goal Selection → Profile Setup → SWOT Mapping → Study Preferences → AI Setup → First Output → Dashboard</span></div>
+      <div class="flow-item"><span class="flow-num">02</span><span class="flow-name">Revision flow</span><span class="flow-steps">Trigger Revision → Select Content → Revise Mode → Active Recall → Performance Check → AI Feedback → Reschedule</span></div>
+      <div class="flow-item"><span class="flow-num">03</span><span class="flow-name">Note reading flow</span><span class="flow-steps">Learn Section → Select Note → Reading Mode → Interaction Layer → Action Layer → Exit with Outcome</span></div>
+      <div class="flow-item"><span class="flow-num">04</span><span class="flow-name">Note generation flow</span><span class="flow-steps">Input → AI Processing → Output (Flashcards / MCQs) → Edit → Save → Revise</span></div>
+      <div class="flow-item"><span class="flow-num">05</span><span class="flow-name">MCQ / flashcard flow</span><span class="flow-steps">User asks question → AI responds (structured answer) → User interacts with response → User converts / saves content</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- USER JOURNEY MAPPING -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h3 class="t-h3" style="opacity:.8">User Journey Mapping</h3>
+    <div class="jrn-wrap">
+      <table class="jrn">
+        <thead><tr><th>Stage</th><th>User Action</th><th>Thought</th><th>Pain Point</th><th>Opportunity</th></tr></thead>
+        <tbody>
+          <tr><td>Awareness</td><td>Discovers app via social or peer</td><td>"Maybe this will help me stay consistent"</td><td>Skeptical after trying many tools</td><td>Clear value prop showing unified system</td></tr>
+          <tr><td>Onboarding</td><td>Sets up goal, exam, subjects</td><td>"This feels personalized"</td><td>Long setup feels tedious</td><td>Progressive onboarding with immediate value</td></tr>
+          <tr><td>Daily Study</td><td>Opens dashboard, sees today's tasks</td><td>"I know exactly what to do today"</td><td>Distraction during sessions</td><td>Focus mode with distraction blocking</td></tr>
+          <tr><td>Note Taking</td><td>Uploads notes, AI generates cards</td><td>"My notes are ready for revision automatically"</td><td>Manual conversion is tedious</td><td>One-click AI conversion</td></tr>
+          <tr><td>Revision</td><td>System prompts, user completes cards</td><td>"I'm actually testing myself"</td><td>Forgetting to revise</td><td>Smart spaced repetition reminders</td></tr>
+          <tr><td>Progress Check</td><td>Views mastery map, readiness score</td><td>"I can see where I'm strong and weak"</td><td>Tracking hours not understanding</td><td>Mastery-based progress visualization</td></tr>
+          <tr><td>AI Help</td><td>Asks AI for concept explanation</td><td>"The AI knows my context"</td><td>Generic AI responses</td><td>Context-aware AI tied to notes and progress</td></tr>
+          <tr><td>Motivation</td><td>Sees streak, small wins, encouragement</td><td>"Even when I fail, the app supports me"</td><td>Guilt after missed days</td><td>Compassionate streak system with recovery mode</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="sec cs-reveal">
+  <div class="w sec-gap">
+    <h2 class="t-h2">Design</h2>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 20.png" alt="Dashboard"></div>
+      <div class="bubble-wrap"><div class="bubble">Dashboard showing daily study tasks with guided learning path and progress overview.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 21.png" alt="Active Recall"></div>
+      <div class="bubble-wrap"><div class="bubble">Active recall interface with flashcards and quiz-based revision system.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 22.png" alt="Note Reading"></div>
+      <div class="bubble-wrap"><div class="bubble">Note reading mode with AI-generated flashcards and MCQs from uploaded content.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 23.png" alt="Spaced Repetition"></div>
+      <div class="bubble-wrap"><div class="bubble">Spaced repetition queue prioritizing weak topics for optimal revision timing.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 24.png" alt="Mastery Map"></div>
+      <div class="bubble-wrap"><div class="bubble">Mastery map visualization showing topic-wise understanding and readiness scores.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 25.png" alt="AI Assistant"></div>
+      <div class="bubble-wrap"><div class="bubble">Context-aware AI assistant providing personalized explanations based on study history.</div></div>
+    </div>
+    
+    <div class="screen-row">
+      <div class="screen-img"><img src="../upsc app images/image 26.png" alt="Motivation Dashboard"></div>
+      <div class="bubble-wrap"><div class="bubble">Motivation dashboard with streak tracking, small wins, and encouragement features.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="../index.html" class="logo">Sarang N</a>
+    <span class="footer-copy"> 2025 · UI/UX Designer</span>
+    <div class="footer-nav">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+<script>
+// ── Scroll reveal ──
+(function(){
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('cs-visible');
+            io.unobserve(entry.target);
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('.cs-reveal, .cs-stagger, .sec').forEach(el => io.observe(el));
+})();
+</script>
+</div>
+</body>
+</html>

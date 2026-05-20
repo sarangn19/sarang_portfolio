@@ -1,0 +1,637 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarang N – UI/UX Designer</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Satoshi override */
+        * { font-family: 'Satoshi', sans-serif !important; }
+
+        /* Nav fix â€” use existing .navbar + .container */
+        .navbar { background: rgba(254,254,254,0.92); border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .navbar.scrolled { background: rgba(254,254,254,0.98); }
+        .logo, .nav-links a { color: #0a0a0a !important; }
+        .nav-links a::after, .nav-links a::before { background: #0a0a0a !important; }
+        .nav-cta-item { list-style: none; }
+        .nav-cta {
+            background: #0a0a0a !important;
+            color: #ffffff !important;
+            border-color: #0a0a0a !important;
+            padding: 10px 20px !important;
+            border-radius: 100px !important;
+            text-decoration: none !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+        }
+        .nav-cta span { color: #ffffff !important; }
+        .nav-cta::after, .nav-cta::before { display: none !important; }
+        .nav-cta:hover { background: #1f1f1f !important; color: #fff !important; }
+        .mobile-resume-cta {
+            display: none;
+            background: #0a0a0a;
+            color: #ffffff;
+            border: 1px solid #0a0a0a;
+            border-radius: 100px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .mobile-menu-btn span { background: #0a0a0a; }
+        .nav-links.active { background: rgba(254,254,254,0.98) !important; }
+
+        /* Hero */
+        .hero { background: #fefefe; }
+        .hero-title { color: #0a0a0a; }
+        .hero-subtitle { color: rgba(0,0,0,0.55); }
+
+        /* Work cards */
+        .work { background: #f3f3f3; }
+        .work-card { background: #fff; border-radius: 20px; overflow: hidden; }
+        .work-card h3 { color: #0a0a0a; }
+
+        /* Tools */
+        .tools { background: #fff; }
+
+        /* Capabilities â€” items layout fix */
+        .cap-item { max-width: 520px; }
+
+        /* Combined contact+footer */
+        .contact-combined {
+            background: linear-gradient(180deg, #111111 0%, #090909 100%);
+            color: #ffffff;
+        }
+        .cc-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .cc-top {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 56px;
+            align-items: start;
+            padding: 112px 0 72px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .cc-heading {
+            max-width: 680px;
+        }
+        .cc-title {
+            font-size: clamp(2.6rem,5vw,5rem);
+            font-weight: 700;
+            letter-spacing: -.04em;
+            line-height: 0.98;
+            color: #fff;
+            margin-bottom: 18px;
+        }
+        .cc-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: rgba(255,255,255,0.9);
+        }
+        .cc-sub {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,.56);
+            margin-bottom: 0;
+            max-width: 520px;
+        }
+        .cc-links {
+            display: grid;
+            gap: 16px;
+        }
+        .cc-link {
+            display: block;
+            padding: 22px 24px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 22px;
+            background: rgba(255,255,255,.03);
+            text-decoration: none;
+            transition: transform .2s ease, border-color .2s ease, background .2s ease;
+        }
+        .cc-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,.16);
+            background: rgba(255,255,255,.05);
+        }
+        .cc-link-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .cc-link-label {
+            font-size: .7rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.38);
+        }
+        .cc-link-val {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,.9);
+            transition: color .2s ease;
+        }
+        .cc-link:hover .cc-link-val { color:#fff; }
+        .cc-bottom {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:28px 0 34px;
+            gap:16px;
+            flex-wrap:wrap;
+        }
+        .cc-logo {
+            font-size: .95rem;
+            font-weight: 600;
+            color: rgba(255,255,255,.88);
+        }
+        .cc-copy {
+            font-size: .78rem;
+            color: rgba(255,255,255,.34);
+        }
+        .cc-nav {
+            display:flex;
+            gap:22px;
+        }
+        .cc-nav a {
+            font-size: .78rem;
+            color: rgba(255,255,255,.42);
+            text-decoration:none;
+            transition:color .2s ease;
+        }
+        .cc-nav a:hover { color:rgba(255,255,255,.82); }
+
+        @media(max-width:900px) {
+            .cc-top {
+                grid-template-columns: 1fr;
+                gap: 36px;
+                padding: 84px 0 56px;
+            }
+        }
+
+        @media(max-width:600px) {
+            .cc-inner { padding: 0 20px; }
+            .cc-top { padding:72px 0 44px; }
+            .cc-link { padding: 18px 18px; border-radius: 18px; }
+            .cc-bottom { flex-direction:column; align-items:flex-start; padding:22px 0 28px; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-resume-cta { display: inline-flex; align-items: center; justify-content: center; }
+            .nav-links.active .nav-cta-item { width: 100%; }
+            .nav-links.active .nav-cta {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Rive Mascot - follows cursor */
+        .rive-mascot-container {
+            position: fixed;
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            z-index: 999;
+            pointer-events: none;
+            transition: none;
+        }
+        .rive-mascot-container canvas {
+            width: 100%;
+            height: 100%;
+        }
+        @media (max-width: 1200px) {
+            .rive-mascot-container {
+                width: 400px;
+                height: 400px;
+            }
+        }
+        @media (max-width: 768px) {
+            .rive-mascot-container {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/@rive-app/canvas@2.9.1"></script>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- Nav -->
+    <nav class="navbar">
+        <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+            <a href="#" class="logo">Sarang N</a>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="nav-cta-item"><a href="#" class="nav-cta"><span>Resume ↗</span></a></li>
+            </ul>
+            <a href="#" class="mobile-resume-cta">Resume ↗</a>
+            <button class="mobile-menu-btn"><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Designing with empathy,<br>built to scale.</h1>
+            <p class="hero-subtitle">Sarang N – B.Design (UI/UX) at LPU, CGPA 8.19. Currently interning as UI/UX Designer at Last Minute Deal, building design systems and product flows.</p>
+            <div class="hero-cta">
+                <a href="#work" class="btn btn-primary">View Work</a>
+                <a href="#contact" class="btn btn-secondary">Let's Talk</a>
+                <a href="#" class="btn btn-outline">↗ Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools -->
+    <section class="tools" id="about">
+        <div class="container">
+            <h2 class="section-title">Tools & Software</h2>
+            <div class="tools-grid">
+                <div class="tool-item"><img src="software logo/photoshop logo.png" alt="Adobe Photoshop"><span>Adobe Photoshop</span></div>
+                <div class="tool-item"><img src="software logo/illustrator logo.png" alt="Adobe Illustrator"><span>Adobe Illustrator</span></div>
+                <div class="tool-item"><img src="software logo/indesign.png" alt="Adobe InDesign"><span>Adobe InDesign</span></div>
+                <div class="tool-item"><img src="software logo/after effects.png" alt="After Effects"><span>After Effects</span></div>
+                <div class="tool-item"><img src="software logo/rive logo.png" alt="Rive"><span>Rive</span></div>
+                <div class="tool-item"><img src="software logo/windsurf logo.png" alt="Windsurf"><span>Windsurf</span></div>
+                <div class="tool-item"><img src="software logo/figma logo.png" alt="Figma"><span>Figma</span></div>
+                <div class="tool-item"><img src="software logo/canva logo.png" alt="Canva"><span>Canva</span></div>
+                <div class="tool-item"><img src="software logo/unity logo.webp" alt="Unity"><span>Unity</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="work">
+        <div class="container">
+            <div class="work-header">
+                <h2 class="section-title">Selected Work</h2>
+            </div>
+            <div class="work-grid" style="grid-template-columns:repeat(2,1fr);">
+                <a href="case-studies/second-brain.html" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="background:linear-gradient(135deg,#0d0d1a,#0f1e3a,#0f3460);height:280px;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">EdTech · UX Research · Product Design</span>
+                        <h3>Second Brain</h3>
+                        <p>Designing against study overwhelm &amp; inconsistency</p>
+                        <span class="work-link">View case study</span>
+                    </div>
+                </a>
+                <a href="case-studies/clearflow.html" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="height:280px;overflow:hidden;border-radius:20px 20px 0 0;"><img src="thumbnail/thumbnail-flow-emi.png" alt="ClearFlow Thumbnail" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">Fintech · UX Research · Product Design</span>
+                        <h3>ClearFlow</h3>
+                        <p>Designing against EMI blindness</p>
+                        <span class="work-link">View case study</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Works -->
+    <section id="other-works" class="other-works">
+        <div class="container">
+            <div class="other-works-header">
+                <span class="other-works-label">OTHER WORKS</span>
+                <span class="other-works-subtitle">UI explorations and experiments</span>
+            </div>
+            <div class="other-works-grid">
+                <a href="#" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="height:200px;overflow:hidden;border-radius:12px;"><img src="thumbnail/thumbnail-epicsix.png" alt="EpicSix E-commerce" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">FASHION ECOMMERCE</span>
+                        <h3>EpicSix - Ecommerce UI</h3>
+                        <p>A modern fashion e-commerce experience</p>
+                        <span class="work-link">View project</span>
+                    </div>
+                </a>
+                <a href="#" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="height:200px;overflow:hidden;border-radius:12px;"><img src="thumbnail/thumbnail-pulse.png" alt="Pulse Creative Agency" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">AGENCY WEBSITE</span>
+                        <h3>Pulse - Creative Agency</h3>
+                        <p>Creative agency portfolio website</p>
+                        <span class="work-link">View project</span>
+                    </div>
+                </a>
+                <a href="#" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="height:200px;overflow:hidden;border-radius:12px;"><img src="thumbnail/thumbnail-kerala-murals.png" alt="Kerala Murals" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">CULTURAL COMMERCE</span>
+                        <h3>Kerala Murals</h3>
+                        <p>Heritage art e-commerce platform</p>
+                        <span class="work-link">View project</span>
+                    </div>
+                </a>
+                <a href="#" class="work-card" style="text-decoration:none;display:block;">
+                    <div class="work-image" style="height:200px;overflow:hidden;border-radius:12px;"><img src="thumbnail/thumbnail-checkout.png" alt="Checkout Experience" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="work-content">
+                        <span class="work-tag">FINTECH</span>
+                        <h3>Checkout Experience</h3>
+                        <p>Streamlined payment flow design</p>
+                        <span class="work-link">View project</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="capabilities-section">
+        <div class="cap-inner">
+            <div class="cap-left-spacer"></div>
+            <div class="cap-left">
+                <span class="cap-label">Capabilities</span>
+                <div class="cap-words">
+                    <div class="cap-word" data-cap="research">Research</div>
+                    <div class="cap-word" data-cap="strategy">Strategy</div>
+                    <div class="cap-word" data-cap="design">Design</div>
+                    <div class="cap-word" data-cap="build">Build</div>
+                </div>
+            </div>
+            <div class="cap-right">
+                <div class="cap-group" data-group="research">
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/user interview.png" alt="User Interviews"></div><div><div class="cap-item-title">User Interviews</div><div class="cap-item-sub">Qualitative insight gathering</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/usability testing.png" alt="Usability Testing"></div><div><div class="cap-item-title">Usability Testing</div><div class="cap-item-sub">Evaluating existing offerings</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/affinity mapping.png" alt="Affinity Mapping"></div><div><div class="cap-item-title">Affinity Mapping</div><div class="cap-item-sub">Synthesising research findings</div></div></div>
+                </div>
+                <div class="cap-group" data-group="strategy">
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/product strategy.png" alt="Product Strategy"></div><div><div class="cap-item-title">Product Strategy</div><div class="cap-item-sub">Vision, goals and roadmaps</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/information architecture.png" alt="Information Architecture"></div><div><div class="cap-item-title">Information Architecture</div><div class="cap-item-sub">Structure and navigation design</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/product requirement.png" alt="Product Requirements"></div><div><div class="cap-item-title">Product Requirements</div><div class="cap-item-sub">Feature definitions and specs</div></div></div>
+                </div>
+                <div class="cap-group" data-group="design">
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/ui design.png" alt="UI Design"></div><div><div class="cap-item-title">UI Design</div><div class="cap-item-sub">Pixel-perfect visual interfaces</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/prototyping.png" alt="Prototyping"></div><div><div class="cap-item-title">Prototyping</div><div class="cap-item-sub">Interactive flows and demos</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/design systems.png" alt="Design Systems"></div><div><div class="cap-item-title">Design Systems</div><div class="cap-item-sub">Scalable component libraries</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/branding.png" alt="Branding"></div><div><div class="cap-item-title">Branding</div><div class="cap-item-sub">Visual identity and language</div></div></div>
+                </div>
+                <div class="cap-group" data-group="build">
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/figma handoff.png" alt="Figma Handoff"></div><div><div class="cap-item-title">Figma Handoff</div><div class="cap-item-sub">Dev-ready specs and assets</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/htmlcss.png" alt="HTML / CSS"></div><div><div class="cap-item-title">HTML / CSS</div><div class="cap-item-sub">Front-end implementation</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/motion design.png" alt="Motion Design"></div><div><div class="cap-item-title">Motion Design</div><div class="cap-item-sub">Animations with Rive &amp; AE</div></div></div>
+                    <div class="cap-item"><div class="cap-icon"><img src="capabilities icon/pitch desks.png" alt="Pitch Decks"></div><div><div class="cap-item-title">Pitch Decks</div><div class="cap-item-sub">Investment and capability decks</div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact + Footer -->
+    <section id="contact" class="contact-combined">
+        <div class="cc-inner">
+            <div class="cc-top">
+                <div class="cc-heading">
+                    <h2 class="cc-title">Let's build something<br><em>together.</em></h2>
+                    <p class="cc-sub">Open to full-time roles, freelance projects, and meaningful conversations around product design, systems, and UX strategy.</p>
+                </div>
+                <div class="cc-links">
+                    <a href="mailto:sarangn19@gmail.com" class="cc-link">
+                        <div class="cc-link-content">
+                            <span class="cc-link-label">Email</span>
+                            <span class="cc-link-val">sarangn19@gmail.com ↗</span>
+                        </div>
+                    </a>
+                    <a href="https://linkedin.com/in/sarang-n" class="cc-link" target="_blank" rel="noreferrer">
+                        <div class="cc-link-content">
+                            <span class="cc-link-label">LinkedIn</span>
+                            <span class="cc-link-val">linkedin.com/in/sarang-n ↗</span>
+                        </div>
+                    </a>
+                    <a href="tel:+919947816993" class="cc-link">
+                        <div class="cc-link-content">
+                            <span class="cc-link-label">Phone</span>
+                            <span class="cc-link-val">+91 99478 16993 ↗</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="cc-bottom">
+                <span class="cc-logo">Sarang N</span>
+                <span class="cc-copy">© 2026 · UI/UX Designer Portfolio</span>
+                <div class="cc-nav">
+                    <a href="#work">Work</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<script src="script.js"></script>
+<script>
+(function(){
+    var left = document.querySelector('.cap-left');
+    var spacer = document.querySelector('.cap-left-spacer');
+    var section = document.querySelector('.capabilities-section');
+    if (!left || !section) return;
+
+    function update(){
+        var isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (isMobile) {
+            left.style.position = 'relative';
+            left.style.top = 'auto';
+            left.style.left = 'auto';
+            left.style.width = '100%';
+            return;
+        }
+
+        var leftWidth = Math.max(260, left.offsetWidth || 300);
+        var sr = section.getBoundingClientRect();
+        var vh = window.innerHeight;
+
+        if (sr.top <= 0 && sr.bottom >= vh) {
+            // Scrolling through â€” fix to viewport
+            var ref = spacer ? spacer.getBoundingClientRect() : sr;
+            left.style.position = 'fixed';
+            left.style.top = '0';
+            left.style.left = ref.left + 'px';
+            left.style.width = leftWidth + 'px';
+        } else if (sr.bottom < vh) {
+            // Past section â€” anchor to bottom of section
+            left.style.position = 'absolute';
+            left.style.top = (section.offsetHeight - vh) + 'px';
+            left.style.left = '40px';
+            left.style.width = leftWidth + 'px';
+        } else {
+            // Before section â€” normal flow
+            left.style.position = 'absolute';
+            left.style.top = '0';
+            left.style.left = '40px';
+            left.style.width = leftWidth + 'px';
+        }
+    }
+
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+})();
+
+// Rive Mascot - Default idle, scroll down animation on scroll, return to default when stop
+(function() {
+    const RIVE_FILE_PATH = 'mascot.riv';
+    
+    // Animation names from Rive file
+    const ANIMATIONS = {
+        DEFAULT: 'Timeline 1',
+        SCROLL_DOWN: 'scroll down',
+        SCROLL_UP: 'Timeline 2'
+    };
+    
+    // Create container
+    const container = document.createElement('div');
+    container.className = 'rive-mascot-container';
+    document.body.appendChild(container);
+    
+    // Create canvas - higher resolution for larger display
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 800;
+    container.appendChild(canvas);
+    
+    let riveInstance = null;
+    let lastScrollY = window.scrollY;
+    let scrollTimeout = null;
+    
+    // Cursor following - start with mascot visible on right side of screen
+    const mascotWidth = 600;
+    let mouseX = window.innerWidth - 400;
+    let mouseY = window.innerHeight / 2;
+    let currentX = window.innerWidth - mascotWidth + 150; // Partially off-screen right
+    let currentY = window.innerHeight / 2 - 300;
+    const followSpeed = 0.08;
+    const cursorDistance = -350; // negative = mascot stays to left of cursor
+    
+    // Initialize Rive
+    function initRive() {
+        if (!window.rive) {
+            setTimeout(initRive, 100);
+            return;
+        }
+        
+        riveInstance = new rive.Rive({
+            src: RIVE_FILE_PATH,
+            canvas: canvas,
+            autoplay: false,
+            onLoad: function() {
+                console.log('Rive loaded. Animations:', riveInstance.animationNames);
+                // Start with default animation
+                playAnimation(ANIMATIONS.DEFAULT);
+            },
+            onError: function(err) {
+                console.error('Rive error:', err);
+                container.style.display = 'none';
+            }
+        });
+    }
+    
+    let currentAnimation = null;
+    
+    // Play animation helper
+    function playAnimation(animationName) {
+        if (!riveInstance || currentAnimation === animationName) return;
+        
+        console.log('Playing:', animationName);
+        currentAnimation = animationName;
+        riveInstance.stop();
+        riveInstance.play(animationName);
+    }
+    
+    // Scroll handler - direct animation switching
+    window.addEventListener('scroll', function() {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollY; // Positive = scrolling down
+        
+        // Clear any pending return to default
+        clearTimeout(scrollTimeout);
+        
+        // Scrolling down
+        if (delta > 3) {
+            playAnimation(ANIMATIONS.SCROLL_DOWN);
+        }
+        // Scrolling up
+        else if (delta < -3) {
+            playAnimation(ANIMATIONS.SCROLL_UP);
+        }
+        
+        lastScrollY = currentScrollY;
+        
+        // Return to default when scroll stops
+        scrollTimeout = setTimeout(() => {
+            playAnimation(ANIMATIONS.DEFAULT);
+        }, 800);
+    }, { passive: true });
+    
+    // Mouse tracking
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // Smooth follow animation
+    function updatePosition() {
+        // Calculate target position with offset (negative = left of cursor)
+        let targetX = mouseX + cursorDistance;
+        let targetY = mouseY;
+        
+        // Keep within viewport bounds (mascotWidth declared above)
+        const mascotHeight = 600;
+        const minX = 50;
+        const maxX = window.innerWidth - mascotWidth - 50; // Keep right edge on screen
+        const minY = 50;
+        const maxY = window.innerHeight - mascotHeight - 50;
+        targetX = Math.max(minX, Math.min(targetX, maxX));
+        targetY = Math.max(minY, Math.min(targetY, maxY));
+        
+        // Smooth lerp
+        currentX += (targetX - currentX) * followSpeed;
+        currentY += (targetY - currentY) * followSpeed;
+        
+        // Apply position
+        container.style.left = currentX + 'px';
+        container.style.top = currentY + 'px';
+        container.style.right = 'auto';
+        container.style.transform = 'none';
+        
+        requestAnimationFrame(updatePosition);
+    }
+    
+    // Apply initial position immediately
+    container.style.left = currentX + 'px';
+    container.style.top = currentY + 'px';
+    container.style.right = 'auto';
+    console.log('Mascot initial position:', currentX, currentY);
+    console.log('Window size:', window.innerWidth, window.innerHeight);
+    
+    // Start position update loop
+    requestAnimationFrame(updatePosition);
+    
+    // Initialize
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRive);
+    } else {
+        initRive();
+    }
+})();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
