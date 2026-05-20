@@ -63,8 +63,7 @@ h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:0.875rem!important;font
 
 /* ── cover ── */
 .cover{width:100%;aspect-ratio:16/6.5;background:#CFCFCF;border-radius:clamp(8px,1.5vw,24px);overflow:hidden;margin-bottom:clamp(40px,5vw,80px)}
-.cover-inner{width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center}
-.cover-ghost{font-size:clamp(40px,10vw,120px);font-weight:900;letter-spacing:-.04em;color:rgba(255,255,255,.05);user-select:none;white-space:nowrap}
+.cover-video{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ── comparison table ── */
 .tbl-wrap{overflow-x:auto;margin-top:clamp(20px,2.5vw,40px)}
@@ -254,7 +253,7 @@ h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:0.875rem!important;font
       <li><a href="../index.html#work">Work</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
-      <li><a href="#" class="nav-cta">Resume ↗</a></li>
+      <li><a href="#" class="nav-cta resume-btn">Resume ↗</a></li>
     </ul>
     <button class="mobile-menu-btn" aria-label="Toggle menu"><span></span><span></span></button>
   </div>
@@ -275,7 +274,7 @@ h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:0.875rem!important;font
       </div>
     </div>
   </div>
-  <div class="cover"><div class="cover-inner"><span class="cover-ghost">Second Brain</span></div></div>
+  <div class="cover"><video class="cover-video" src="../seconbrain video.mp4" autoplay muted loop playsinline></video></div>
 </div>
 
 <!-- PROBLEM -->
@@ -607,6 +606,15 @@ h4.t-h4,.t-h4{font-family:'Satoshi',sans-serif;font-size:0.875rem!important;font
     document.querySelectorAll('.cs-reveal, .cs-stagger, .sec').forEach(el => io.observe(el));
 })();
 </script>
+
+<!-- Resume Modal -->
+<div class="resume-modal-overlay" id="resumeModal">
+    <div class="resume-modal">
+        <button class="resume-modal-close">&times;</button>
+        <iframe class="resume-modal-iframe" src="../SARANG N ATS CV (1).pdf" title="Resume"></iframe>
+    </div>
+</div>
+
 </div>
 </body>
 </html>
