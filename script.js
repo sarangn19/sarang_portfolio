@@ -344,6 +344,43 @@ function initCapabilities() {
 
     items.forEach(item => itemObserver.observe(item));
 }
+
+// ============================================
+// RESUME MODAL
+// ============================================
+function initResumeModal() {
+    const modal = document.getElementById('resumeModal');
+    const btns = document.querySelectorAll('.resume-btn');
+    const closeBtn = modal.querySelector('.resume-modal-close');
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initResumeModal);
+} else {
+    initResumeModal();
+}
+
 // ============================================
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     // Disable complex animations for accessibility
